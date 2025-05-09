@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.java_todolist.controller.LoginController"
+            prefWidth="420" prefHeight="480"
+            style="-fx-background-color: #1e1e2f;">
+
+    <children>
+        <VBox alignment="CENTER" spacing="24"
+              AnchorPane.leftAnchor="40" AnchorPane.rightAnchor="40"
+              AnchorPane.topAnchor="60" AnchorPane.bottomAnchor="40">
+
+            <Label text="Login"
+                   style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;" />
+
+            <VBox spacing="16" alignment="CENTER">
+
+                <TextField fx:id="usernameField" promptText="Username"
+                           style="-fx-background-color: #2c2c3e;
+                                  -fx-text-fill: white;
+                                  -fx-prompt-text-fill: #888;
+                                  -fx-background-radius: 8;
+                                  -fx-border-color: #444;
+                                  -fx-border-radius: 8;" />
+
+                <PasswordField fx:id="passwordField" promptText="Password"
+                               style="-fx-background-color: #2c2c3e;
+                                      -fx-text-fill: white;
+                                      -fx-prompt-text-fill: #888;
+                                      -fx-background-radius: 8;
+                                      -fx-border-color: #444;
+                                      -fx-border-radius: 8;" />
+
+                <Button text="Login" onAction="#handleLogin"
+                        style="-fx-background-color: #4f46e5;
+                               -fx-text-fill: white;
+                               -fx-background-radius: 8;
+                               -fx-font-weight: bold;
+                               -fx-padding: 8 20;" />
+
+            </VBox>
+
+            <Label text="Forgot password?" style="-fx-text-fill: #888; -fx-font-size: 10px;" />
+
+        </VBox>
+    </children>
+</AnchorPane>
