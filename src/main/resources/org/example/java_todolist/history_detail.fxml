@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.java_todolist.controller.HistoryDetailController" prefHeight="600.0" prefWidth="800.0">
+    <children>
+        <Label fx:id="dateLabel" layoutX="20.0" layoutY="20.0" style="-fx-font-size: 20px;" text="Detail Riwayat"/>
+
+        <Label layoutX="20.0" layoutY="60.0" text="Tugas Belum Selesai" style="-fx-font-size: 16px;"/>
+        <TableView fx:id="incompleteTable" layoutX="20.0" layoutY="90.0" prefHeight="200.0" prefWidth="760.0">
+            <columns>
+                <TableColumn fx:id="incompleteTitleColumn" text="Judul"/>
+                <TableColumn fx:id="incompleteDeadlineColumn" text="Deadline"/>
+                <TableColumn fx:id="incompleteCategoryColumn" text="Kategori"/>
+                <TableColumn fx:id="incompleteDescriptionColumn" text="Deskripsi"/>
+            </columns>
+        </TableView>
+
+        <Label layoutX="20.0" layoutY="310.0" text="Tugas Selesai" style="-fx-font-size: 16px;"/>
+        <TableView fx:id="completeTable" layoutX="20.0" layoutY="340.0" prefHeight="200.0" prefWidth="760.0">
+            <columns>
+                <TableColumn fx:id="completeTitleColumn" text="Judul"/>
+                <TableColumn fx:id="completeDeadlineColumn" text="Deadline"/>
+                <TableColumn fx:id="completeCategoryColumn" text="Kategori"/>
+                <TableColumn fx:id="completeDescriptionColumn" text="Deskripsi"/>
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.java_todolist.controller.AddTaskController" prefWidth="300" prefHeight="350">
+    <children>
+        <Label text="Judul Tugas" layoutX="20" layoutY="20"/>
+        <TextField fx:id="titleField" layoutX="20" layoutY="40" prefWidth="260"/>
+
+        <Label text="Deadline" layoutX="20" layoutY="80"/>
+        <DatePicker fx:id="deadlinePicker" layoutX="20" layoutY="100" prefWidth="260"/>
+
+        <Label text="Kategori" layoutX="20" layoutY="140"/>
+        <ComboBox fx:id="categoryComboBox" layoutX="20" layoutY="160" prefWidth="260"/>
+
+        <Label text="Deskripsi" layoutX="20" layoutY="200"/>
+        <TextArea fx:id="descriptionField" layoutX="20" layoutY="220" prefWidth="260" prefHeight="60"/>
+
+        <Button text="Simpan" layoutX="20" layoutY="290" onAction="#handleSave"/>
+        <Button text="Batal" layoutX="200" layoutY="290" onAction="#handleCancel"/>
+    </children>
+</AnchorPane>

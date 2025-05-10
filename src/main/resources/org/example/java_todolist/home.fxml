@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="565.0" prefWidth="1272.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="org.example.java_todolist.controller.HomeController">
+    <children>
+        <!-- Header -->
+        <Label fx:id="todayLabel" layoutX="20" layoutY="20" style="-fx-font-size: 24px;" text="Todolist Kamu hari ini" />
+
+        <!-- Menampilkan Nama Pengguna yang Login -->
+        <Label fx:id="usernameLabel" layoutX="20" layoutY="60" style="-fx-font-size: 18px;" />
+
+        <!-- Tombol tambah tugas -->
+        <Button layoutX="20.0" layoutY="164.0" onAction="#handleAddTask" text="Tambah Tugas" />
+
+        <!-- Tombol load histori -->
+<!--        <Button layoutX="140.0" layoutY="164.0" onAction="#handleOpenHistory" text="Histori" />-->
+
+        <!-- Filter Kategori -->
+        <Label layoutX="20.0" layoutY="198.0" style="-fx-font-size: 14px;" text="Kategori" />
+        <ComboBox fx:id="categoryComboBox" layoutX="21.0" layoutY="226.0" prefWidth="150" />
+
+        <!-- Filter Status -->
+        <!--<Label text="Status" layoutX="320" layoutY="80" style="-fx-font-size: 14px;"/>-->
+        <!--<ComboBox fx:id="statusComboBox" layoutX="320" layoutY="100" prefWidth="150" />-->
+
+        <!-- Search Field -->
+        <TextField fx:id="searchField" layoutX="173.0" layoutY="226.0" prefWidth="150" promptText="Cari tugas..." />
+
+        <!-- Tabel tugas belum selesai -->
+        <TableView fx:id="incompleteTaskTable" layoutX="20.0" layoutY="317.0" prefHeight="150" prefWidth="600">
+            <columns>
+                <TableColumn fx:id="incompleteTitleColumn" text="Judul" />
+                <TableColumn fx:id="incompleteDeadlineColumn" text="Deadline" />
+                <TableColumn fx:id="incompleteCategoryColumn" text="Kategori" />
+                <TableColumn fx:id="incompleteDescriptionColumn" text="Deskripsi" />
+                <TableColumn fx:id="incompleteActionColumn" text="Aksi" />
+            </columns>
+        </TableView>
+
+        <!-- Tabel tugas selesai -->
+        <Label layoutX="635.0" layoutY="277.0" style="-fx-font-size: 18px;" text="Tabel Tugas Selesai" />
+        <TableView fx:id="completedTaskTable" layoutX="635.0" layoutY="317.0" prefHeight="150" prefWidth="600">
+            <columns>
+                <TableColumn fx:id="completedTitleColumn" text="Judul" />
+                <TableColumn fx:id="completedDeadlineColumn" text="Deadline" />
+                <TableColumn fx:id="completedCategoryColumn" text="Kategori" />
+                <TableColumn fx:id="completedDescriptionColumn" text="Deskripsi" />
+            </columns>
+        </TableView>
+
+        <!-- Tombol Logout -->
+        <Button layoutX="19.0" layoutY="85.0" onAction="#handleLogout" text="Logout" />
+      <Label layoutX="19.0" layoutY="277.0" style="-fx-font-size: 18px;" text="Tabel Tugas" />
+    </children>
+</AnchorPane>

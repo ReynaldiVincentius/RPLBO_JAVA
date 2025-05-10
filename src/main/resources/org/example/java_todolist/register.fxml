@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.java_todolist.controller.LoginController"
+            fx:controller="org.example.java_todolist.controller.RegisterController"
             prefWidth="420" prefHeight="480"
             style="-fx-background-color: #1e1e2f;">
 
@@ -15,7 +15,7 @@
               AnchorPane.leftAnchor="40" AnchorPane.rightAnchor="40"
               AnchorPane.topAnchor="60" AnchorPane.bottomAnchor="40">
 
-            <Label text="Login"
+            <Label text="Register"
                    style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;" />
 
             <VBox spacing="16" alignment="CENTER">
@@ -36,7 +36,15 @@
                                       -fx-border-color: #444;
                                       -fx-border-radius: 8;" />
 
-                <Button text="Login" onAction="#handleLogin"
+                <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password"
+                               style="-fx-background-color: #2c2c3e;
+                                      -fx-text-fill: white;
+                                      -fx-prompt-text-fill: #888;
+                                      -fx-background-radius: 8;
+                                      -fx-border-color: #444;
+                                      -fx-border-radius: 8;" />
+
+                <Button text="Register" onAction="#handleRegister"
                         style="-fx-background-color: #4f46e5;
                                -fx-text-fill: white;
                                -fx-background-radius: 8;
@@ -45,11 +53,8 @@
 
             </VBox>
 
-            <Button text="Don't have an account? Register here."
-                    onAction="#handleRegisterRedirect"
-                    style="-fx-background-color: transparent; -fx-text-fill: #888; -fx-font-size: 10px;"/>
-
-            <Label text="Forgot password?" style="-fx-text-fill: #888; -fx-font-size: 10px;" />
+            <Label text="Already have an account? Login here."
+                   style="-fx-text-fill: #888; -fx-font-size: 10px;" />
 
         </VBox>
     </children>

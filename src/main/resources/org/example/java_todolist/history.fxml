@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.java_todolist.controller.HistoryController" prefHeight="600.0" prefWidth="800.0">
+    <children>
+        <Label layoutX="20.0" layoutY="20.0" text="Riwayat Tugas" style="-fx-font-size: 24px;"/>
+        <VBox fx:id="historyVBox" layoutX="20.0" layoutY="60.0" prefWidth="760.0" spacing="10.0"/>
+    </children>
+</AnchorPane>
