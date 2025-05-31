@@ -11,7 +11,7 @@ import java.io.IOException;
 public class MainController {
 
     @FXML
-    private StackPane contentPane; // ini harus sama dengan fx:id di Main.fxml
+    private StackPane contentPane; // harus sama dengan fx:id di Main.fxml
 
     @FXML
     private Button dashboardButton;
@@ -24,8 +24,8 @@ public class MainController {
 
     @FXML
     private void initialize() {
-        // Load default view (misalnya dashboard)
-        loadView("dashboard");
+        // Load default view (misalnya Main.fxml)
+        loadView("Main");
     }
 
     @FXML
@@ -33,10 +33,10 @@ public class MainController {
         Button clickedButton = (Button) event.getSource();
         String label = clickedButton.getText().toLowerCase();
 
-        // Load berdasarkan nama tombol
+        // Load berdasarkan nama tombol, sesuaikan nama file FXML yang ada
         switch (label) {
             case "dashboard":
-                loadView("dashboard");
+                loadView("Main"); // ganti "dashboard" jadi "Main"
                 break;
             case "todo":
                 loadView("todo");

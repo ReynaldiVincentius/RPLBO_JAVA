@@ -41,7 +41,31 @@
     <!-- CONTENT -->
     <center>
         <StackPane fx:id="contentPane" styleClass="content">
-            <Label text="Welcome to SmartTask!" styleClass="welcome-text"/>
+            <VBox alignment="TOP_LEFT" spacing="20">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+
+                <Label text="Erin Hannon - Bathroom Remodel" styleClass="card-title"/>
+
+                <VBox styleClass="task-card" spacing="10">
+                    <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                    </padding>
+
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="📅 April 15" styleClass="task-date"/>
+                        <Label text="Paint" styleClass="task-name"/>
+                    </HBox>
+
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="🕗 8:00AM for 4 hours" styleClass="task-time"/>
+                        <Label text="👷 Faruk Ahmad" styleClass="task-assignee"/>
+                    </HBox>
+
+                    <Label text="📝 NOTES (2)" styleClass="task-notes"/>
+                </VBox>
+            </VBox>
         </StackPane>
     </center>
 

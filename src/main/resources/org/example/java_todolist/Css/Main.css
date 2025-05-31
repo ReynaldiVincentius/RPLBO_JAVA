@@ -54,3 +54,35 @@
     -fx-font-size: 18px;
     -fx-text-fill: #333;
 }
+
+
+
+
+.task-card {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 4);
+}
+
+.card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.task-date {
+    -fx-font-size: 14px;
+    -fx-text-fill: #4a4a4a;
+}
+
+.task-name {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.task-time, .task-assignee, .task-notes {
+    -fx-font-size: 13px;
+    -fx-text-fill: #555;
+}
+
