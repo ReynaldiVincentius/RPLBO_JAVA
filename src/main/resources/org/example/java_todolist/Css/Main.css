@@ -1,0 +1,56 @@
+.sidebar {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 20;
+}
+
+.logo {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d6cdf;
+    -fx-padding: 0 0 20 0;
+}
+
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 8 12 8 12;
+}
+
+.sidebar-button:selected, .sidebar-button.selected {
+    -fx-background-color: #e0f0ff;
+    -fx-text-fill: #2d6cdf;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+}
+
+.navbar {
+    -fx-background-color: #ffffff;
+    -fx-padding: 12 20 12 20;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-style: solid;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-font-size: 16px;
+    -fx-text-fill: #444;
+}
+
+.username {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+    -fx-padding: 0 8 0 0;
+}
+
+.content {
+    -fx-background-color: #f5f5f5;
+    -fx-padding: 30;
+}
+
+.welcome-text {
+    -fx-font-size: 18px;
+    -fx-text-fill: #333;
+}

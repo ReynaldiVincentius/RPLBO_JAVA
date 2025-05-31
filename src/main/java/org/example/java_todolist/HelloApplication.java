@@ -9,10 +9,14 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/View/Main.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Login Page");
+
+        stage.setTitle("SmartTask");
         stage.setScene(scene);
+
+        stage.setMaximized(true);
+
         stage.show();
     }
 
