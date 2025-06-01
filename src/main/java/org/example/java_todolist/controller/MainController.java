@@ -2,60 +2,42 @@ package org.example.java_todolist.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import javafx.event.ActionEvent;
-import java.io.IOException;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Label; // ✅ Tambahkan ini
+import javafx.scene.Parent;
 
 public class MainController {
 
-    @FXML
-    private StackPane contentPane; // harus sama dengan fx:id di Main.fxml
+    @FXML private BorderPane rootPane;
+    @FXML private StackPane contentPane;
+    @FXML private Label usernameLabel; // ✅ Tambahkan ini sesuai fx:id di Main.fxml
 
-    @FXML
-    private Button dashboardButton;
+    private String currentUsername;
 
-    @FXML
-    private Button todoButton;
+    public void setCurrentUsername(String username) {
+        this.currentUsername = username;
 
-    @FXML
-    private Button completedButton;
-
-    @FXML
-    private void initialize() {
-        // Load default view (misalnya Main.fxml)
-        loadView("Main");
-    }
-
-    @FXML
-    private void handleSidebarAction(ActionEvent event) {
-        Button clickedButton = (Button) event.getSource();
-        String label = clickedButton.getText().toLowerCase();
-
-        // Load berdasarkan nama tombol, sesuaikan nama file FXML yang ada
-        switch (label) {
-            case "dashboard":
-                loadView("Main"); // ganti "dashboard" jadi "Main"
-                break;
-            case "todo":
-                loadView("todo");
-                break;
-            case "completed":
-                loadView("completed");
-                break;
-            default:
-                System.out.println("Tidak dikenali: " + label);
+        // ✅ Set teks label jika sudah tersedia
+        if (usernameLabel != null) {
+            usernameLabel.setText("Welcome, " + username + "!");
         }
+
+        loadDashboard();
     }
 
-    private void loadView(String viewName) {
+    private void loadDashboard() {
         try {
-            Node view = FXMLLoader.load(getClass().getResource(
-                    "/org/example/java_todolist/View/" + viewName + ".fxml"
-            ));
-            contentPane.getChildren().setAll(view);
-        } catch (IOException e) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/view/dashboard.fxml"));
+            Parent dashboardPane = loader.load();
+
+            DashboardController dashboardController = loader.getController();
+            dashboardController.setCurrentUsername(currentUsername);
+            dashboardController.loadTaskCards();
+
+            contentPane.getChildren().setAll(dashboardPane);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

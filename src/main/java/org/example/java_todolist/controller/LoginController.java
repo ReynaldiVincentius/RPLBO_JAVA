@@ -1,10 +1,13 @@
 package org.example.java_todolist.controller;
 
+import javafx.scene.layout.BorderPane;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.example.java_todolist.database.Database;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +17,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
-import java.io.IOException;
+import javafx.scene.Parent;
+
 
 public class LoginController {
 
@@ -29,14 +33,11 @@ public class LoginController {
     @FXML
     public void handleRegisterRedirect(ActionEvent event) {
         try {
-            // Muat file FXML Register
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/register.fxml"));
-            AnchorPane registerPane = loader.load();
+            BorderPane registerPane = loader.load();  // Asumsi root di register.fxml BorderPane, sesuaikan kalau bukan
 
-            // Buat scene baru dengan Register.fxml
             Scene registerScene = new Scene(registerPane);
 
-            // Mendapatkan Stage dari event yang diteruskan
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(registerScene);
             stage.show();
@@ -58,22 +59,19 @@ public class LoginController {
 
             if (rs.next()) {
                 String hashedPassword = rs.getString("password");
-                // Memverifikasi password menggunakan BCryptPasswordEncoder
                 if (passwordEncoder.matches(password, hashedPassword)) {
                     System.out.println("Login berhasil!");
 
-                    // Pindah ke halaman Home
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/home.fxml"));
-                    AnchorPane homePane = loader.load();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/view/Main.fxml"));
+                    Parent mainPane = loader.load(); // ✅ atau pakai BorderPane kalau kamu yakin
 
-                    // Kirim username ke HomeController
-                    HomeController controller = loader.getController();
-                    controller.setCurrentUsername(username);
+                    MainController mainController = loader.getController();
+                    mainController.setCurrentUsername(username);
 
-                    // Ambil stage dari event
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    Scene scene = new Scene(homePane);
+                    Scene scene = new Scene(mainPane);
                     stage.setScene(scene);
+                    stage.setMaximized(true);
                     stage.show();
                 } else {
                     System.out.println("Password salah!");
@@ -85,4 +83,6 @@ public class LoginController {
             e.printStackTrace();
         }
     }
+
 }
+

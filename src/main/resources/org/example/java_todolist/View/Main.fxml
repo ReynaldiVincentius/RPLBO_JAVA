@@ -2,8 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
 <BorderPane fx:id="rootPane" xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -31,7 +31,7 @@
         <HBox spacing="10" styleClass="navbar" alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
             <Region fx:id="spacer" HBox.hgrow="ALWAYS"/>
             <Button text="🔔" styleClass="icon-button"/>
-            <Label text="Mailinda" styleClass="username"/>
+            <Label fx:id="usernameLabel" layoutX="20" layoutY="20" text="Welcome!" style="-fx-font-size: 18px;" />
             <ImageView fitHeight="30" fitWidth="30">
                 <Image url="@../Assets/user_avatar.jpg"/>
             </ImageView>
