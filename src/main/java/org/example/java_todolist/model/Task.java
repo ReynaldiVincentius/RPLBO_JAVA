@@ -1,24 +1,22 @@
 package org.example.java_todolist.model;
 
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.property.BooleanProperty;
 
 public class Task {
     private final StringProperty title;
     private final StringProperty deadline;
     private final StringProperty category;
-    private final BooleanProperty isDone;
+    private final StringProperty status;
     private final StringProperty description;
     private final StringProperty id;
 
     // Constructor
-    public Task(String title, String deadline, String category, boolean isDone, String description, String id) {
+    public Task(String title, String deadline, String category, String status, String description, String id) {
         this.title = new SimpleStringProperty(title);
         this.deadline = new SimpleStringProperty(deadline);
         this.category = new SimpleStringProperty(category);
-        this.isDone = new SimpleBooleanProperty(isDone);
+        this.status = new SimpleStringProperty(status);
         this.description = new SimpleStringProperty(description);
         this.id = new SimpleStringProperty(id);
     }
@@ -36,8 +34,8 @@ public class Task {
         return category.get();
     }
 
-    public boolean getIsDone() {
-        return isDone.get();
+    public String getStatus() {
+        return status.get();
     }
 
     public String getDescription() {
@@ -61,8 +59,8 @@ public class Task {
         this.category.set(category);
     }
 
-    public void setIsDone(boolean isDone) {
-        this.isDone.set(isDone);
+    public void setStatus(String status) {
+        this.status.set(status);
     }
 
     public void setDescription(String description) {
@@ -86,8 +84,8 @@ public class Task {
         return category;
     }
 
-    public BooleanProperty isDoneProperty() {
-        return isDone;
+    public StringProperty statusProperty() {
+        return status;
     }
 
     public StringProperty descriptionProperty() {

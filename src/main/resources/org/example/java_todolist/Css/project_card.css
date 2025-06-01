@@ -1,0 +1,8 @@
+.info-badge {
+    -fx-font-size: 10px;
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #333;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-cursor: default;
+}

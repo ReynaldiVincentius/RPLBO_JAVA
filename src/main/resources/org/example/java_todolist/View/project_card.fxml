@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<?import java.net.URL?>
+<VBox spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.java_todolist.controller.ProjectCardController"
+      style="-fx-background-color: #f2f2f2; -fx-padding: 15; -fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #ccc;"
+      stylesheets="@../Css/project_card.css">
+
+    <Label fx:id="projectNameLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+    <Label fx:id="projectDescriptionLabel" wrapText="true" style="-fx-font-size: 12px; -fx-text-fill: gray;" />
+
+    <VBox fx:id="taskListContainer" spacing="5" />
+
+    <HBox spacing="5">
+        <Button fx:id="totalTaskBtn" styleClass="info-badge" disable="true" />
+        <Button fx:id="doneBtn" styleClass="info-badge" disable="true" />
+        <Button fx:id="progressBtn" styleClass="info-badge" disable="true" />
+        <Button fx:id="cancelledBtn" styleClass="info-badge" disable="true" />
+        <Button fx:id="categoryCountBtn" styleClass="info-badge" disable="true" />
+    </HBox>
+</VBox>

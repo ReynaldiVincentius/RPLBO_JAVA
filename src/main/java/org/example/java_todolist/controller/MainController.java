@@ -34,7 +34,7 @@ public class MainController {
 
             DashboardController dashboardController = loader.getController();
             dashboardController.setCurrentUsername(currentUsername);
-            dashboardController.loadTaskCards();
+            dashboardController.loadProjectCards();
 
             contentPane.getChildren().setAll(dashboardPane);
         } catch (Exception e) {

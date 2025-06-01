@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.java_todolist.controller.ProjectDetailController"
+            prefWidth="800" prefHeight="600">
+
+    <VBox spacing="16" AnchorPane.topAnchor="16" AnchorPane.leftAnchor="16" AnchorPane.rightAnchor="16">
+        <Label fx:id="projectTitle" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+        <ScrollPane fitToWidth="true" prefHeight="500">
+            <VBox fx:id="taskListContainer" spacing="8" padding="10" />
+        </ScrollPane>
+
+        <HBox spacing="10">
+            <TextField fx:id="taskNameInput" promptText="Task name" />
+            <TextField fx:id="taskCategoryInput" promptText="Category" />
+            <DatePicker fx:id="taskDeadlinePicker" promptText="Deadline" />
+            <Button text="Tambah Task" onAction="#handleAddTask" />
+        </HBox>
+    </VBox>
+</AnchorPane>
