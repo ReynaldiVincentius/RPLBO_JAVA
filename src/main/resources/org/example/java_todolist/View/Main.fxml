@@ -15,11 +15,6 @@
         <VBox spacing="15" styleClass="sidebar" alignment="TOP_LEFT" prefWidth="220" BorderPane.alignment="CENTER">
             <Label text="SmartTask" styleClass="logo"/>
             <Button text="Dashboard" styleClass="sidebar-button"/>
-            <Button text="Project" styleClass="sidebar-button"/>
-            <Button text="Analytic" styleClass="sidebar-button"/>
-            <Button text="Timesheets" styleClass="sidebar-button"/>
-            <Button text="Todo" styleClass="sidebar-button"/>
-            <Button text="Report" styleClass="sidebar-button"/>
             <Separator />
             <Button text="Settings" styleClass="sidebar-button"/>
             <Button text="Support" styleClass="sidebar-button"/>
@@ -32,13 +27,9 @@
             <Region fx:id="spacer" HBox.hgrow="ALWAYS"/>
             <Button text="🔔" styleClass="icon-button"/>
             <Label fx:id="usernameLabel" layoutX="20" layoutY="20" text="Welcome!" style="-fx-font-size: 18px;" />
-<!--            <ImageView fitHeight="30" fitWidth="30">-->
-<!--                <Image url="@../Assets/user_avatar.jpg"/>-->
-<!--            </ImageView>-->
             <MenuButton fx:id="profileMenu"
                         layoutX="360" layoutY="20"
                         style="-fx-background-color: transparent;">
-
                 <graphic>
                     <ImageView fitHeight="32" fitWidth="32">
                         <image>
@@ -58,6 +49,13 @@
     <!-- CONTENT -->
     <center>
         <StackPane fx:id="contentPane" styleClass="content">
+            <!-- Tambah task form -->
+            <HBox spacing="10">
+                <TextField fx:id="taskNameInput" promptText="Task name" />
+                <TextField fx:id="taskCategoryInput" promptText="Category" />
+                <DatePicker fx:id="taskDeadlinePicker" promptText="Deadline" />
+                <Button text="Tambah Task" />
+            </HBox>
             <VBox alignment="TOP_LEFT" spacing="20">
                 <padding>
                     <Insets top="20" right="20" bottom="20" left="20"/>
@@ -85,5 +83,6 @@
             </VBox>
         </StackPane>
     </center>
+
 
 </BorderPane>
