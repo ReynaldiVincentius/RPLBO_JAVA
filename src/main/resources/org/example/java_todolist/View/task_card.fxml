@@ -9,7 +9,8 @@
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.example.java_todolist.controller.TaskCardController"
       spacing="10"
-      styleClass="task-card">
+      styleClass="task-card"
+      stylesheets="@../Css/TaskCard.css">
 
     <padding>
         <Insets top="15" right="15" bottom="15" left="15"/>

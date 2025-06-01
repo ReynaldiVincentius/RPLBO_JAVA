@@ -3,6 +3,7 @@ module org.example.java_todolist {
     requires javafx.fxml;
     requires  java.sql;
     requires spring.security.crypto;
+    requires java.desktop;
 
 //    requires spring.security.crypto;
 

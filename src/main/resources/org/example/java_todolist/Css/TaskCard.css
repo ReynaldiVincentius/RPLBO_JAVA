@@ -1,0 +1,42 @@
+.task-card {
+    -fx-background-color: #FAFAFA;
+    -fx-background-radius: 8px;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 5, 0, 0, 3);
+    -fx-spacing: 10px;
+}
+
+/* Judul tugas */
+.task-name {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #222222;
+}
+
+/* Tanggal tugas */
+.task-date {
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #4B5563;
+}
+
+/* Waktu tugas */
+.task-time {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6B7280;
+}
+
+/* Assignee tugas */
+.task-assignee {
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #4B5563;
+}
+
+/* Catatan tugas */
+.task-notes {
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #1652F0;
+    -fx-padding: 5 0 0 0;
+}

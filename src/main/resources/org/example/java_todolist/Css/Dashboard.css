@@ -1,0 +1,23 @@
+#rootPane {
+    -fx-background-color: transparent;
+}
+
+#cardScrollPane {
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+}
+
+#cardContainer {
+    -fx-background-color: transparent;
+}
+
+/* Style untuk setiap card task yang akan di-add di cardContainer */
+.task-card {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 3);
+    -fx-spacing: 10;
+    -fx-pref-width: 350; /* sesuaikan dengan lebar container */
+}
+

@@ -34,7 +34,7 @@ public class LoginController {
     public void handleRegisterRedirect(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/register.fxml"));
-            BorderPane registerPane = loader.load();  // Asumsi root di register.fxml BorderPane, sesuaikan kalau bukan
+            Parent registerPane = loader.load(); // Asumsi root di register.fxml BorderPane, sesuaikan kalau bukan
 
             Scene registerScene = new Scene(registerPane);
 

@@ -55,6 +55,10 @@ public class DashboardController {
                 // Set project data
                 controller.setProject(projectId, name, description);
 
+                projectCard.setOnMouseClicked(event -> {
+                    openProjectDetail(projectId, name);
+                });
+
                 cardContainer.getChildren().add(projectCard);
             }
 
@@ -90,7 +94,7 @@ public class DashboardController {
 
     private void openProjectDetail(int projectId, String projectName) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/view/project_detail.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/View/project_detail.fxml"));
             AnchorPane detailPane = loader.load();
 
             ProjectDetailController controller = loader.getController();

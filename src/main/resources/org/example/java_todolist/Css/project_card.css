@@ -1,8 +1,44 @@
-.info-badge {
-    -fx-font-size: 10px;
-    -fx-background-color: #e0e0e0;
-    -fx-text-fill: #333;
-    -fx-border-radius: 12;
-    -fx-background-radius: 12;
+/* Background dan border card */
+.root {
+    -fx-background-color: #f2f2f2;
+    -fx-padding: 15px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-color: #ccc;
+}
+
+/* Label project name */
+.label#projectNameLabel {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #222222;
+}
+
+/* Label project description */
+.label#projectDescriptionLabel {
+    -fx-font-size: 12px;
+    -fx-text-fill: gray;
+}
+
+/* Container task list di dalam card */
+#taskListContainer {
+    -fx-padding: 10 0 10 0;
+}
+
+/* Style tombol info badge */
+.button.info-badge {
+    -fx-background-color: #1652F0;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-background-radius: 8px;
+    -fx-padding: 4 10;
     -fx-cursor: default;
+}
+
+/* Tombol info badge disable */
+.button.info-badge:disabled {
+    -fx-background-color: #9ca3af; /* abu-abu lembut */
+    -fx-text-fill: #f0f0f0;
+    -fx-opacity: 1;
 }

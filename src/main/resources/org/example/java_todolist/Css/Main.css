@@ -1,88 +1,100 @@
+/* Root & layout */
+.rootPane {
+    -fx-background-color: #F7F9FC;
+    -fx-font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+}
+
+/* Sidebar */
 .sidebar {
-    -fx-background-color: #f8f9fa;
-    -fx-padding: 20;
+    -fx-background-color: white;
+    -fx-padding: 20 15 20 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 2);
 }
 
 .logo {
-    -fx-font-size: 22px;
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-text-fill: #2d6cdf;
-    -fx-padding: 0 0 20 0;
+    -fx-text-fill: #1652F0;
+    -fx-padding: 0 0 10 0;
 }
 
 .sidebar-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #333;
+    -fx-text-fill: #4B5563;
     -fx-font-size: 14px;
+    -fx-font-weight: 600;
     -fx-alignment: CENTER_LEFT;
-    -fx-padding: 8 12 8 12;
+    -fx-padding: 10 15;
+    -fx-cursor: hand;
 }
 
-.sidebar-button:selected, .sidebar-button.selected {
-    -fx-background-color: #e0f0ff;
-    -fx-text-fill: #2d6cdf;
-    -fx-font-weight: bold;
-    -fx-background-radius: 6;
+.sidebar-button:hover {
+    -fx-background-color: #E6F0FF;
+    -fx-text-fill: #1652F0;
 }
 
+/* Navbar */
 .navbar {
-    -fx-background-color: #ffffff;
-    -fx-padding: 12 20 12 20;
-    -fx-border-color: #e0e0e0;
-    -fx-border-width: 0 0 1 0;
-    -fx-border-style: solid;
+    -fx-background-color: white;
+    -fx-padding: 10 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 4, 0, 0, 2);
 }
 
 .icon-button {
     -fx-background-color: transparent;
-    -fx-font-size: 16px;
-    -fx-text-fill: #444;
-}
-
-.username {
-    -fx-font-size: 14px;
-    -fx-text-fill: #333;
-    -fx-padding: 0 8 0 0;
-}
-
-.content {
-    -fx-background-color: #f5f5f5;
-    -fx-padding: 30;
-}
-
-.welcome-text {
     -fx-font-size: 18px;
-    -fx-text-fill: #333;
+    -fx-cursor: hand;
 }
 
-
-
-
-.task-card {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #e0e0e0;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 4);
+/* Content */
+.content {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 6, 0, 0, 4);
 }
 
+/* Card title */
 .card-title {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
+    -fx-text-fill: #222222;
 }
 
+/* Task card */
+.task-card {
+    -fx-background-color: #FAFAFA;
+    -fx-background-radius: 8;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 3, 0, 0, 2);
+}
+
+/* Task Labels */
 .task-date {
-    -fx-font-size: 14px;
-    -fx-text-fill: #4a4a4a;
+    -fx-text-fill: #4B5563;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
 }
 
 .task-name {
-    -fx-font-size: 14px;
+    -fx-text-fill: #222222;
+    -fx-font-size: 15px;
     -fx-font-weight: bold;
 }
 
-.task-time, .task-assignee, .task-notes {
+.task-time {
+    -fx-text-fill: #6B7280;
     -fx-font-size: 13px;
-    -fx-text-fill: #555;
 }
 
+.task-assignee {
+    -fx-text-fill: #4B5563;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+}
+
+.task-notes {
+    -fx-text-fill: #1652F0;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-padding: 5 0 0 0;
+}

@@ -1,0 +1,58 @@
+/* AnchorPane utama */
+.anchor-pane {
+    -fx-background-color: #F7F9FC;
+}
+
+/* Judul proyek */
+#projectTitle {
+    -fx-text-fill: #222222;
+    -fx-font-weight: bold;
+}
+
+/* ScrollPane untuk daftar task */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Container task list */
+#taskListContainer {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-padding: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 3);
+}
+
+/* HBox input task */
+.hbox {
+    -fx-padding: 10 0 0 0;
+}
+
+/* TextFields input */
+.text-field {
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: #ccc;
+    -fx-padding: 6 10;
+}
+
+/* DatePicker */
+.date-picker {
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: #ccc;
+}
+
+/* Tombol tambah task */
+.button {
+    -fx-background-color: #1652F0;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #0f40c7;
+}

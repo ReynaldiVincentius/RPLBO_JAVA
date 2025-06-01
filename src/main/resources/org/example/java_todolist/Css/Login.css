@@ -1,0 +1,56 @@
+.root-pane {
+    -fx-background-color: #ffffff;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.title-label {
+    -fx-font-size: 24px;
+    -fx-text-fill: #111827;
+    -fx-font-weight: bold;
+}
+
+.custom-input {
+    -fx-background-color: #f9fafb;
+    -fx-background-radius: 8;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 8;
+    -fx-text-fill: #111827;
+    -fx-prompt-text-fill: #9ca3af;
+    -fx-font-size: 14px;
+    -fx-padding: 10;
+}
+
+.custom-input:focused {
+    -fx-border-color: #4f46e5;
+}
+
+.primary-button {
+    -fx-background-color: #4f46e5;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #4338ca;
+}
+
+.link-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6b7280;
+    -fx-font-size: 11px;
+    -fx-cursor: hand;
+}
+
+.link-button:hover {
+    -fx-text-fill: #4b5563;
+    -fx-underline: true;
+}
+
+.hint-label {
+    -fx-text-fill: #9ca3af;
+    -fx-font-size: 11px;
+}

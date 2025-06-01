@@ -1,0 +1,47 @@
+.anchor-pane {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 20px;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0, 0, 4);
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.label {
+    -fx-text-fill: #222222;
+}
+
+#labelTitle {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.text-area {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+.button {
+    -fx-background-color: #1652F0;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 8 14;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #0f40c7;
+}
+
+.button + .button {
+    -fx-background-color: #6b7280; /* grey for less important buttons */
+}
+
+.button + .button:hover {
+    -fx-background-color: #4b5563;
+}

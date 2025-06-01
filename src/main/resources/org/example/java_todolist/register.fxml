@@ -7,55 +7,55 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.example.java_todolist.controller.RegisterController"
-            prefWidth="420" prefHeight="480"
-            style="-fx-background-color: #1e1e2f;">
+            prefWidth="420" prefHeight="500"
+            style="-fx-background-color: #ffffff;">
 
     <children>
         <VBox alignment="CENTER" spacing="24"
               AnchorPane.leftAnchor="40" AnchorPane.rightAnchor="40"
               AnchorPane.topAnchor="60" AnchorPane.bottomAnchor="40">
 
-            <Label text="Register"
-                   style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;" />
+            <Label text="Create Account"
+                   style="-fx-text-fill: #1e1e2f; -fx-font-size: 24px; -fx-font-weight: bold;" />
 
             <VBox spacing="16" alignment="CENTER">
 
                 <TextField fx:id="usernameField" promptText="Username"
-                           style="-fx-background-color: #2c2c3e;
-                                  -fx-text-fill: white;
-                                  -fx-prompt-text-fill: #888;
-                                  -fx-background-radius: 8;
-                                  -fx-border-color: #444;
-                                  -fx-border-radius: 8;" />
+                           style="-fx-background-color: #f0f0f5;
+                                  -fx-text-fill: #1e1e2f;
+                                  -fx-prompt-text-fill: #999;
+                                  -fx-background-radius: 10;
+                                  -fx-border-color: transparent;
+                                  -fx-padding: 10 14;" />
 
                 <PasswordField fx:id="passwordField" promptText="Password"
-                               style="-fx-background-color: #2c2c3e;
-                                      -fx-text-fill: white;
-                                      -fx-prompt-text-fill: #888;
-                                      -fx-background-radius: 8;
-                                      -fx-border-color: #444;
-                                      -fx-border-radius: 8;" />
+                               style="-fx-background-color: #f0f0f5;
+                                      -fx-text-fill: #1e1e2f;
+                                      -fx-prompt-text-fill: #999;
+                                      -fx-background-radius: 10;
+                                      -fx-border-color: transparent;
+                                      -fx-padding: 10 14;" />
 
                 <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password"
-                               style="-fx-background-color: #2c2c3e;
-                                      -fx-text-fill: white;
-                                      -fx-prompt-text-fill: #888;
-                                      -fx-background-radius: 8;
-                                      -fx-border-color: #444;
-                                      -fx-border-radius: 8;" />
+                               style="-fx-background-color: #f0f0f5;
+                                      -fx-text-fill: #1e1e2f;
+                                      -fx-prompt-text-fill: #999;
+                                      -fx-background-radius: 10;
+                                      -fx-border-color: transparent;
+                                      -fx-padding: 10 14;" />
 
                 <Button text="Register" onAction="#handleRegister"
                         style="-fx-background-color: #4f46e5;
                                -fx-text-fill: white;
-                               -fx-background-radius: 8;
+                               -fx-background-radius: 10;
                                -fx-font-weight: bold;
-                               -fx-padding: 8 20;" />
-
+                               -fx-padding: 10 20;
+                               -fx-cursor: hand;" />
             </VBox>
 
-            <Label text="Already have an account? Login here."
-                   style="-fx-text-fill: #888; -fx-font-size: 10px;" />
-
+            <Hyperlink text="Already have an account? Login"
+                       onAction="#handleLoginRedirect"
+                       style="-fx-text-fill: #4f46e5; -fx-font-size: 11px; -fx-underline: true;" />
         </VBox>
     </children>
 </AnchorPane>

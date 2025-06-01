@@ -2,9 +2,13 @@ package org.example.java_todolist.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.Node;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.example.java_todolist.database.Database;
 import org.example.java_todolist.model.Task;
 
@@ -38,12 +42,12 @@ public class ProjectDetailController {
 
             while (rs.next()) {
                 Task task = new Task(
-                        rs.getString("id"),
-                        rs.getString("project_id"),
-                        rs.getString("name"),
-                        rs.getString("status"),
+                        rs.getString("title"),
+                        rs.getString("deadline"),
                         rs.getString("category"),
-                        rs.getString("deadline")
+                        rs.getString("status"),
+                        rs.getString("description"),
+                        rs.getString("id")
                 );
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/view/task_card.fxml"));
@@ -52,6 +56,7 @@ public class ProjectDetailController {
                 // Set data ke taskCardController
                 TaskCardController controller = loader.getController();
                 controller.setTask(task);
+                cardNode.setOnMouseClicked(event -> openTaskDetailModal(task));
 
                 taskListContainer.getChildren().add(cardNode);
             }
@@ -59,6 +64,26 @@ public class ProjectDetailController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void openTaskDetailModal(Task task) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/view/task_detail_modal.fxml"));
+            Parent root = loader.load();
+
+            TaskDetailModalController controller = loader.getController();
+            controller.setTask(task); // kirim data task ke modal
+
+            Stage stage = new Stage();
+            stage.setTitle("Detail Tugas");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     private void handleAddTask() {
