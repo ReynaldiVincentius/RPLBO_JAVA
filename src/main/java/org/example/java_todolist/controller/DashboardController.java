@@ -19,8 +19,7 @@ import java.util.List;
 public class DashboardController {
 
     @FXML private VBox cardContainer;
-
-    @FXML private StackPane rootPane;  // Tambahkan ini, sesuai root layout di fxml
+    @FXML private StackPane rootPane;  // Ini adalah root StackPane dari dashboard.fxml
 
     private String currentUsername;
 
@@ -30,11 +29,15 @@ public class DashboardController {
 
     @FXML
     public void initialize() {
-        // Jangan panggil loadTaskCards di sini karena currentUsername belum tentu sudah di-set
-        // Panggil loadTaskCards setelah setCurrentUsername dipanggil dari luar
+        // Tidak memuat project langsung, tunggu hingga currentUsername di-set
     }
 
     public void loadProjectCards() {
+        if (currentUsername == null) {
+            System.out.println("Username belum diset. Tidak bisa load project.");
+            return;
+        }
+
         try (Connection conn = Database.getConnection()) {
             String sql = "SELECT * FROM projects WHERE owner_username = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -52,17 +55,32 @@ public class DashboardController {
                 Node projectCard = loader.load();
                 ProjectCardController controller = loader.getController();
 
-                // Set project data
                 controller.setProject(projectId, name, description);
 
-                projectCard.setOnMouseClicked(event -> {
-                    openProjectDetail(projectId, name);
-                });
+                // Kirim info project + username ke detail saat diklik
+                projectCard.setOnMouseClicked(event -> openProjectDetail(projectId, name));
 
                 cardContainer.getChildren().add(projectCard);
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void openProjectDetail(int projectId, String projectName) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/view/project_detail.fxml"));
+            AnchorPane detailPane = loader.load();
+
+            ProjectDetailController controller = loader.getController();
+            controller.setProjectData(projectId, projectName);
+            controller.setRootPane(rootPane);
+            controller.setCurrentUsername(currentUsername); // ✅ Kirim username ke detail
+
+            rootPane.getChildren().setAll(detailPane);
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -90,21 +108,5 @@ public class DashboardController {
             e.printStackTrace();
         }
         return tasks;
-    }
-
-    private void openProjectDetail(int projectId, String projectName) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/View/project_detail.fxml"));
-            AnchorPane detailPane = loader.load();
-
-            ProjectDetailController controller = loader.getController();
-            controller.setProjectData(projectId, projectName);
-
-            // Ganti seluruh konten rootPane dengan detailPane
-            rootPane.getChildren().setAll(detailPane);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

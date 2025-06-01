@@ -1,9 +1,7 @@
 package org.example.java_todolist.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.java_todolist.database.Database;
 import org.example.java_todolist.model.Task;
@@ -12,27 +10,86 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 public class TaskDetailModalController {
-    @FXML private Label labelTitle;
-    @FXML private Label labelDeadline;
-    @FXML private Label labelCategory;
+    @FXML private TextField titleField;
+    @FXML private DatePicker deadlinePicker;
+    @FXML private ComboBox<String> categoryComboBox;
     @FXML private Label labelStatus;
-    @FXML private TextArea labelDescription;
+    @FXML private TextArea descriptionField;
 
+    @FXML private Button onSaveClickedBtn;
+    @FXML private Button onCancelClickedBtn;
     private Task task;
+
+    @FXML
+    public void initialize() {
+        System.out.println("TaskDetailModalController initialized");
+        System.out.println("onSaveClickedBtn = " + onSaveClickedBtn); // harusnya tidak null
+    }
+
 
     public void setTask(Task task) {
         this.task = task;
-        labelTitle.setText(task.getTitle());
-        labelDeadline.setText("Deadline: " + task.getDeadline());
-        labelCategory.setText("Kategori: " + task.getCategory());
+
+        titleField.setText(task.getTitle());
+        deadlinePicker.setValue(java.time.LocalDate.parse(task.getDeadline()));
+        categoryComboBox.getItems().addAll("Pekerjaan", "Pribadi", "Olahraga", "Belanja", "Lainnya");
+        categoryComboBox.setValue(task.getCategory());
         labelStatus.setText("Status: " + task.getStatus());
-        labelDescription.setText(task.getDescription());
+        descriptionField.setText(task.getDescription());
+
+        setEditMode(false);
+    }
+
+    private void setEditMode(boolean isEdit) {
+        System.out.println("Edit mode: " + isEdit);
+        titleField.setEditable(isEdit);
+        deadlinePicker.setDisable(!isEdit);
+        categoryComboBox.setDisable(!isEdit);
+
+        descriptionField.setEditable(isEdit);
+        descriptionField.setDisable(!isEdit); // penting
+        System.out.println("descriptionField editable = " + descriptionField.isEditable());
+        System.out.println("descriptionField disabled = " + descriptionField.isDisable());
+
+        onSaveClickedBtn.setVisible(isEdit);
+        onCancelClickedBtn.setVisible(isEdit);
     }
 
     @FXML
     private void onEditClicked() {
-        // TODO: Buka form edit (modal atau scene baru)
-        showInfo("Fitur edit belum diimplementasi.");
+        setEditMode(true);
+    }
+
+    @FXML
+    private void onCancelClicked() {
+        setTask(task);  // reset data
+        setEditMode(false);
+    }
+
+    @FXML
+    private void onSaveClicked() {
+        try (Connection conn = Database.getConnection()) {
+            String sql = "UPDATE tasks SET title=?, deadline=?, category=?, description=? WHERE id=?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, titleField.getText());
+            stmt.setString(2, deadlinePicker.getValue().toString());
+            stmt.setString(3, categoryComboBox.getValue());
+            stmt.setString(4, descriptionField.getText());
+            stmt.setInt(5, Integer.parseInt(task.getId()));
+            stmt.executeUpdate();
+
+            // Update objek task lokal
+            task.setTitle(titleField.getText());
+            task.setDeadline(deadlinePicker.getValue().toString());
+            task.setCategory(categoryComboBox.getValue());
+            task.setDescription(descriptionField.getText());
+
+            setEditMode(false);
+            showInfo("Tugas berhasil diperbarui.");
+
+        } catch (Exception e) {
+            showInfo("Gagal menyimpan perubahan: " + e.getMessage());
+        }
     }
 
     @FXML
@@ -88,7 +145,7 @@ public class TaskDetailModalController {
     }
 
     private void closeWindow() {
-        Stage stage = (Stage) labelTitle.getScene().getWindow();
+        Stage stage = (Stage) titleField.getScene().getWindow();
         stage.close();
     }
 }

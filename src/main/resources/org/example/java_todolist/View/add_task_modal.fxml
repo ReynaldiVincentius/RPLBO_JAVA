@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.java_todolist.controller.AddTaskModalController"
+            prefWidth="400" prefHeight="350"
+            styleClass="modal">
+
+    <VBox spacing="12.0" alignment="TOP_CENTER" AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+        <Label text="Tambah Tugas Baru" styleClass="modal-title"/>
+
+        <TextField fx:id="titleField" promptText="Judul Tugas"/>
+        <!-- Ganti TextField kategori jadi ComboBox -->
+        <ComboBox fx:id="categoryComboBox" promptText="Kategori" editable="true"/>
+        <TextArea fx:id="descriptionArea" promptText="Deskripsi" prefRowCount="3"/>
+        <DatePicker fx:id="deadlinePicker" promptText="Deadline"/>
+
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button text="❌ Batal" onAction="#handleCancel" styleClass="danger-button"/>
+            <Button text="➕ Simpan" onAction="#handleSave" styleClass="primary-button"/>
+        </HBox>
+    </VBox>
+
+</AnchorPane>

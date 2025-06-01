@@ -32,9 +32,26 @@
             <Region fx:id="spacer" HBox.hgrow="ALWAYS"/>
             <Button text="🔔" styleClass="icon-button"/>
             <Label fx:id="usernameLabel" layoutX="20" layoutY="20" text="Welcome!" style="-fx-font-size: 18px;" />
-            <ImageView fitHeight="30" fitWidth="30">
-                <Image url="@../Assets/user_avatar.jpg"/>
-            </ImageView>
+<!--            <ImageView fitHeight="30" fitWidth="30">-->
+<!--                <Image url="@../Assets/user_avatar.jpg"/>-->
+<!--            </ImageView>-->
+            <MenuButton fx:id="profileMenu"
+                        layoutX="360" layoutY="20"
+                        style="-fx-background-color: transparent;">
+
+                <graphic>
+                    <ImageView fitHeight="32" fitWidth="32">
+                        <image>
+                            <Image url="@../Assets/user_avatar.jpg"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+
+                <items>
+                    <MenuItem text="Logout" onAction="#handleLogout"/>
+                </items>
+            </MenuButton>
+
         </HBox>
     </top>
 

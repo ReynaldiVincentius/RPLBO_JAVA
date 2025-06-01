@@ -10,6 +10,9 @@
             stylesheets="@../Css/ProjectDetail.css">
 
     <VBox spacing="16" AnchorPane.topAnchor="16" AnchorPane.leftAnchor="16" AnchorPane.rightAnchor="16">
+        <Button fx:id="backButton" text="← Back"
+                onAction="#handleBack"
+                styleClass="back-button"/>
         <Label fx:id="projectTitle" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
 
         <ScrollPane fitToWidth="true" prefHeight="500" style="-fx-background-color: transparent; -fx-border-color: transparent;">
