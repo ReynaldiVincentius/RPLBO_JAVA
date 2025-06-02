@@ -100,31 +100,31 @@
 }
 
 
+/* Sidebar */
 .sidebar-button {
     -fx-background-color: transparent;
     -fx-text-fill: #374151;
     -fx-font-size: 14px;
-    -fx-font-weight: normal;
     -fx-alignment: CENTER_LEFT;
-    -fx-padding: 10 15;
-    -fx-background-radius: 8;
+    -fx-padding: 8 12;
+    -fx-background-radius: 6;
+    -fx-font-weight: 500;
     -fx-cursor: hand;
-    -fx-border-color: transparent;
 }
 
 .sidebar-button:hover {
-    -fx-background-color: #f3f4f6;
-    -fx-text-fill: #1d4ed8;
+    -fx-background-color: #F3F4F6;
+    -fx-text-fill: #1D4ED8;
 }
 
 .sidebar-button.active {
-    -fx-background-color: #e0e7ff;
-    -fx-text-fill: #1e40af;
-    -fx-font-weight: bold;
-    -fx-border-width: 0 0 0 4px;
-    -fx-border-color: transparent transparent transparent #1e40af;
-    -fx-background-radius: 8;
+    -fx-background-color: #E5E7EB; /* soft gray */
+    -fx-text-fill: #1E3A8A; /* dark blue, bukan putih */
+    -fx-font-weight: 600;
+    -fx-background-radius: 6;
 }
+
+
 
 
 

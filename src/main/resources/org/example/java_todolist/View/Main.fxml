@@ -12,13 +12,56 @@
 
     <!-- SIDEBAR -->
     <left>
-        <VBox spacing="15" styleClass="sidebar" alignment="TOP_LEFT" prefWidth="220" BorderPane.alignment="CENTER">
+        <VBox spacing="10" styleClass="sidebar" alignment="TOP_LEFT" prefWidth="220">
             <Label text="SmartTask" styleClass="logo"/>
-            <Button text="Dashboard" styleClass="sidebar-button active"/>
-            <Separator />
-            <Button text="Settings" styleClass="sidebar-button"/>
-            <Button text="Support" styleClass="sidebar-button"/>
+
+            <Label text="MAIN MENU" styleClass="sidebar-section"/>
+
+            <VBox fx:id="menuBox" spacing="5">
+                <Button styleClass="sidebar-button active" graphicTextGap="10">
+                    <graphic>
+                        <Label text="🏠"/>
+                    </graphic>
+                    <text>Dashboard</text>
+                </Button>
+
+                <Button styleClass="sidebar-button" graphicTextGap="10">
+                    <graphic>
+                        <Label text="⏱"/>
+                    </graphic>
+                    <text>Time Tracking</text>
+                </Button>
+
+                <Button styleClass="sidebar-button" graphicTextGap="10">
+                    <graphic>
+                        <Label text="📝"/>
+                    </graphic>
+                    <text>Task List</text>
+                </Button>
+
+                <Button styleClass="sidebar-button" graphicTextGap="10">
+                    <graphic>
+                        <Label text="📦"/>
+                    </graphic>
+                    <text>Projects</text>
+                </Button>
+
+                <Button styleClass="sidebar-button" graphicTextGap="10">
+                    <graphic>
+                        <Label text="🗓"/>
+                    </graphic>
+                    <text>Schedule</text>
+                </Button>
+
+                <Button styleClass="sidebar-button" graphicTextGap="10">
+                    <graphic>
+                        <Label text="📁"/>
+                    </graphic>
+                    <text>Files</text>
+                </Button>
+            </VBox>
         </VBox>
+
     </left>
 
     <!-- NAVBAR -->
