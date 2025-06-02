@@ -14,7 +14,7 @@
     <left>
         <VBox spacing="15" styleClass="sidebar" alignment="TOP_LEFT" prefWidth="220" BorderPane.alignment="CENTER">
             <Label text="SmartTask" styleClass="logo"/>
-            <Button text="Dashboard" styleClass="sidebar-button"/>
+            <Button text="Dashboard" styleClass="sidebar-button active"/>
             <Separator />
             <Button text="Settings" styleClass="sidebar-button"/>
             <Button text="Support" styleClass="sidebar-button"/>

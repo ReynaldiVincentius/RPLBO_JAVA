@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.java_todolist.controller.TaskInputCardController"
+      spacing="10" style="-fx-border-color: #ccc; -fx-border-radius: 5; -fx-padding: 10;">
+
+    <TextField fx:id="titleField" promptText="Judul Task" prefWidth="150" />
+    <TextField fx:id="categoryField" promptText="Kategori" prefWidth="100" />
+    <DatePicker fx:id="deadlinePicker" promptText="Deadline" />
+    <TextField fx:id="statusField" promptText="Status" prefWidth="100" />
+    <TextField fx:id="descriptionField" promptText="Deskripsi" prefWidth="200" />
+    <Button text="❌" onAction="#handleRemove" style="-fx-background-color: transparent; -fx-text-fill: red;" />
+</HBox>

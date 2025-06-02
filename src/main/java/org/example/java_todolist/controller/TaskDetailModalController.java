@@ -19,6 +19,11 @@ public class TaskDetailModalController {
     @FXML private Button onSaveClickedBtn;
     @FXML private Button onCancelClickedBtn;
     private Task task;
+    private Runnable onTaskUpdated;
+
+    public void setOnTaskUpdated(Runnable callback) {
+        this.onTaskUpdated = callback;
+    }
 
     @FXML
     public void initialize() {
@@ -78,7 +83,7 @@ public class TaskDetailModalController {
             stmt.setInt(5, Integer.parseInt(task.getId()));
             stmt.executeUpdate();
 
-            // Update objek task lokal
+            // Update lokal
             task.setTitle(titleField.getText());
             task.setDeadline(deadlinePicker.getValue().toString());
             task.setCategory(categoryComboBox.getValue());
@@ -87,6 +92,9 @@ public class TaskDetailModalController {
             setEditMode(false);
             showInfo("Tugas berhasil diperbarui.");
 
+            // 🔥 Tambahkan ini:
+            if (onTaskUpdated != null) onTaskUpdated.run();
+
         } catch (Exception e) {
             showInfo("Gagal menyimpan perubahan: " + e.getMessage());
         }
@@ -94,24 +102,25 @@ public class TaskDetailModalController {
 
     @FXML
     private void onMarkDoneClicked() {
-        if (!task.getStatus().equalsIgnoreCase("Selesai")) {
+        if (!task.getStatus().equalsIgnoreCase("DONE")) {
             try (Connection conn = Database.getConnection()) {
                 String sql = "UPDATE tasks SET status = ? WHERE id = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setString(1, "Selesai");
+                stmt.setString(1, "DONE");
                 stmt.setInt(2, Integer.parseInt(task.getId()));
                 stmt.executeUpdate();
 
-                task.setStatus("Selesai");
-                labelStatus.setText("Status: Selesai");
-                showInfo("Tugas ditandai sebagai selesai.");
+                task.setStatus("DONE");
+                labelStatus.setText("Status: DONE");
+                showInfo("Tugas ditandai sebagai DONE.");
             } catch (Exception e) {
                 showInfo("Gagal update status: " + e.getMessage());
             }
         } else {
-            showInfo("Tugas sudah selesai.");
+            showInfo("Tugas sudah DONE.");
         }
     }
+
 
     @FXML
     private void onDeleteClicked() {
@@ -129,7 +138,12 @@ public class TaskDetailModalController {
                     stmt.executeUpdate();
 
                     showInfo("Tugas berhasil dihapus.");
+
+                    // 🔥 Tambahkan ini:
+                    if (onTaskUpdated != null) onTaskUpdated.run();
+
                     closeWindow();
+
                 } catch (Exception e) {
                     showInfo("Gagal menghapus tugas: " + e.getMessage());
                 }

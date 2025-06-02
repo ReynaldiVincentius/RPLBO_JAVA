@@ -3,6 +3,7 @@ package org.example.java_todolist.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -10,16 +11,20 @@ import org.example.java_todolist.model.Task;
 import org.example.java_todolist.database.Database;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.scene.Parent;
+import javafx.fxml.FXMLLoader;
+import java.io.IOException;
+
 
 public class DashboardController {
 
     @FXML private VBox cardContainer;
-    @FXML private StackPane rootPane;  // Ini adalah root StackPane dari dashboard.fxml
+    @FXML private StackPane rootPane;  // root StackPane dari dashboard.fxml
+    @FXML private Button addProjectBtn;
 
     private String currentUsername;
 
@@ -27,10 +32,37 @@ public class DashboardController {
         this.currentUsername = username;
     }
 
+    // Getter untuk akses rootPane dari controller lain
+    public StackPane getRootPane() {
+        return rootPane;
+    }
+
+    // Getter untuk akses cardContainer dari controller lain
+    public VBox getCardContainer() {
+        return cardContainer;
+    }
+
     @FXML
     public void initialize() {
-        // Tidak memuat project langsung, tunggu hingga currentUsername di-set
+        addProjectBtn.setOnAction(event -> openAddProjectForm());
     }
+
+    private void openAddProjectForm() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/view/add_project.fxml"));
+            VBox addProjectPane = loader.load();  // Ganti AnchorPane ke VBox
+
+            AddProjectController controller = loader.getController();
+            controller.setDashboardController(this);
+
+            rootPane.getChildren().setAll(addProjectPane);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     public void loadProjectCards() {
         if (currentUsername == null) {
@@ -57,7 +89,6 @@ public class DashboardController {
 
                 controller.setProject(projectId, name, description);
 
-                // Kirim info project + username ke detail saat diklik
                 projectCard.setOnMouseClicked(event -> openProjectDetail(projectId, name));
 
                 cardContainer.getChildren().add(projectCard);
@@ -76,7 +107,7 @@ public class DashboardController {
             ProjectDetailController controller = loader.getController();
             controller.setProjectData(projectId, projectName);
             controller.setRootPane(rootPane);
-            controller.setCurrentUsername(currentUsername); // ✅ Kirim username ke detail
+            controller.setCurrentUsername(currentUsername);
 
             rootPane.getChildren().setAll(detailPane);
 
@@ -109,4 +140,73 @@ public class DashboardController {
         }
         return tasks;
     }
+
+    public void addProject(String name, String description, List<Task> tasks) {
+        try (Connection conn = Database.getConnection()) {
+            conn.setAutoCommit(false);
+
+            String insertProjectSql = "INSERT INTO projects (name, description, owner_username) VALUES (?, ?, ?)";
+            PreparedStatement projectStmt = conn.prepareStatement(insertProjectSql, PreparedStatement.RETURN_GENERATED_KEYS);
+            projectStmt.setString(1, name);
+            projectStmt.setString(2, description);
+            projectStmt.setString(3, currentUsername);
+            int affectedRows = projectStmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                conn.rollback();
+                throw new SQLException("Creating project failed, no rows affected.");
+            }
+
+            ResultSet generatedKeys = projectStmt.getGeneratedKeys();
+            int projectId;
+            if (generatedKeys.next()) {
+                projectId = generatedKeys.getInt(1);
+            } else {
+                conn.rollback();
+                throw new SQLException("Creating project failed, no ID obtained.");
+            }
+
+            String insertTaskSql = "INSERT INTO tasks (title, deadline, category, status, description, project_id) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement taskStmt = conn.prepareStatement(insertTaskSql);
+
+            for (Task task : tasks) {
+                taskStmt.setString(1, task.getTitle());
+                taskStmt.setString(2, task.getDeadline());
+                taskStmt.setString(3, task.getCategory());
+                taskStmt.setString(4, task.getStatus());
+                taskStmt.setString(5, task.getDescription());
+                taskStmt.setInt(6, projectId);
+                taskStmt.addBatch();
+            }
+
+            taskStmt.executeBatch();
+            conn.commit();
+
+            loadProjectCards();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            // rollback bisa ditambah di sini jika perlu
+        }
+    }
+
+    public void returnToDashboardView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/View/dashboard.fxml"));
+            Parent dashboardRoot = loader.load();
+
+            DashboardController controller = loader.getController();
+            controller.setCurrentUsername(currentUsername);
+            controller.loadProjectCards();
+
+            // Ganti isi rootPane dengan dashboard baru
+            rootPane.getChildren().setAll(dashboardRoot);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }

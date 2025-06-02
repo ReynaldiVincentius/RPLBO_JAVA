@@ -105,15 +105,20 @@ public class ProjectDetailController {
             TaskDetailModalController controller = loader.getController();
             controller.setTask(task);
 
+            // Ini bagian penting → set callback
+            controller.setOnTaskUpdated(this::loadTasks); // agar loadTasks() dipanggil ulang setelah edit/delete
+
             Stage stage = new Stage();
             stage.setTitle("Detail Tugas");
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     private void handleAddTask() {

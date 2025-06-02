@@ -1,26 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.java_todolist.controller.AddTaskModalController"
-            prefWidth="400" prefHeight="350"
-            styleClass="modal">
+<AnchorPane prefHeight="350" prefWidth="400" styleClass="modal" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="org.example.java_todolist.controller.AddTaskModalController">
 
-    <VBox spacing="12.0" alignment="TOP_CENTER" AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
-        <Label text="Tambah Tugas Baru" styleClass="modal-title"/>
+                <VBox alignment="TOP_CENTER" prefHeight="316.0" prefWidth="360.0" spacing="12.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+        <Label styleClass="modal-title" text="Tambah Tugas Baru" />
+   
+                                   <TextField fx:id="titleField" promptText="Judul Tugas" />
+        <TextArea fx:id="descriptionArea" prefRowCount="3" promptText="Deskripsi" />
+      <HBox>
+         <children>
+              <!-- Ganti TextField kategori jadi ComboBox -->
+              <ComboBox fx:id="categoryComboBox" editable="true" promptText="Kategori" />
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+              <DatePicker fx:id="deadlinePicker" promptText="Deadline" />
+         </children>
+      </HBox>
 
-        <TextField fx:id="titleField" promptText="Judul Tugas"/>
-        <!-- Ganti TextField kategori jadi ComboBox -->
-        <ComboBox fx:id="categoryComboBox" promptText="Kategori" editable="true"/>
-        <TextArea fx:id="descriptionArea" promptText="Deskripsi" prefRowCount="3"/>
-        <DatePicker fx:id="deadlinePicker" promptText="Deadline"/>
-
-        <HBox spacing="10" alignment="CENTER_RIGHT">
-            <Button text="❌ Batal" onAction="#handleCancel" styleClass="danger-button"/>
-            <Button text="➕ Simpan" onAction="#handleSave" styleClass="primary-button"/>
+                          <HBox alignment="BOTTOM_RIGHT" prefHeight="18.0" prefWidth="360.0" spacing="10" VBox.vgrow="ALWAYS">
+            <Button onAction="#handleCancel" styleClass="danger-button" text="❌ Batal" />
+            <Button onAction="#handleSave" styleClass="primary-button" text="➕ Simpan" />
         </HBox>
     </VBox>
 

@@ -21,3 +21,19 @@
     -fx-pref-width: 350; /* sesuaikan dengan lebar container */
 }
 
+.modern-button {
+    -fx-background-color: linear-gradient(to right, #6366f1, #4f46e5); /* Indigo gradient */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16 8 16;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0.2, 0, 2);
+    -fx-alignment: CENTER_LEFT;
+}
+
+.modern-button:hover {
+    -fx-background-color: linear-gradient(to right, #4f46e5, #4338ca); /* Darker on hover */
+    -fx-translate-y: -1;
+}
