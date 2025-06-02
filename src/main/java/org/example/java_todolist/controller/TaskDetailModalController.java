@@ -28,16 +28,14 @@ public class TaskDetailModalController {
     @FXML
     public void initialize() {
         System.out.println("TaskDetailModalController initialized");
-        System.out.println("onSaveClickedBtn = " + onSaveClickedBtn); // harusnya tidak null
     }
-
 
     public void setTask(Task task) {
         this.task = task;
 
         titleField.setText(task.getTitle());
         deadlinePicker.setValue(java.time.LocalDate.parse(task.getDeadline()));
-        categoryComboBox.getItems().addAll("Pekerjaan", "Pribadi", "Olahraga", "Belanja", "Lainnya");
+        loadCategories();
         categoryComboBox.setValue(task.getCategory());
         labelStatus.setText("Status: " + task.getStatus());
         descriptionField.setText(task.getDescription());
@@ -45,19 +43,56 @@ public class TaskDetailModalController {
         setEditMode(false);
     }
 
+    private void loadCategories() {
+        try (Connection conn = Database.getConnection()) {
+            String sql = "SELECT DISTINCT category FROM tasks WHERE category IS NOT NULL";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            var rs = stmt.executeQuery();
+
+            categoryComboBox.getItems().clear();
+
+            while (rs.next()) {
+                String category = rs.getString("category");
+                if (category != null && !category.isEmpty()) {
+                    categoryComboBox.getItems().add(category);
+                }
+            }
+
+            // Tambah opsi buat kategori baru
+            categoryComboBox.getItems().add("➕ Tambah Kategori Baru...");
+
+        } catch (Exception e) {
+            showInfo("Gagal memuat kategori: " + e.getMessage());
+        }
+    }
+
     private void setEditMode(boolean isEdit) {
-        System.out.println("Edit mode: " + isEdit);
         titleField.setEditable(isEdit);
         deadlinePicker.setDisable(!isEdit);
         categoryComboBox.setDisable(!isEdit);
-
         descriptionField.setEditable(isEdit);
-        descriptionField.setDisable(!isEdit); // penting
-        System.out.println("descriptionField editable = " + descriptionField.isEditable());
-        System.out.println("descriptionField disabled = " + descriptionField.isDisable());
-
+        descriptionField.setDisable(!isEdit);
         onSaveClickedBtn.setVisible(isEdit);
         onCancelClickedBtn.setVisible(isEdit);
+
+        if (isEdit) {
+            loadCategories(); // reload data kategori saat mode edit
+            categoryComboBox.setOnAction(event -> {
+                if ("➕ Tambah Kategori Baru...".equals(categoryComboBox.getValue())) {
+                    TextInputDialog dialog = new TextInputDialog();
+                    dialog.setTitle("Kategori Baru");
+                    dialog.setHeaderText("Masukkan nama kategori baru:");
+                    dialog.setContentText("Kategori:");
+
+                    dialog.showAndWait().ifPresent(newCategory -> {
+                        if (newCategory != null && !newCategory.isBlank()) {
+                            categoryComboBox.getItems().add(categoryComboBox.getItems().size() - 1, newCategory);
+                            categoryComboBox.setValue(newCategory);
+                        }
+                    });
+                }
+            });
+        }
     }
 
     @FXML
@@ -92,7 +127,6 @@ public class TaskDetailModalController {
             setEditMode(false);
             showInfo("Tugas berhasil diperbarui.");
 
-            // 🔥 Tambahkan ini:
             if (onTaskUpdated != null) onTaskUpdated.run();
 
         } catch (Exception e) {
@@ -121,7 +155,6 @@ public class TaskDetailModalController {
         }
     }
 
-
     @FXML
     private void onDeleteClicked() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -139,7 +172,6 @@ public class TaskDetailModalController {
 
                     showInfo("Tugas berhasil dihapus.");
 
-                    // 🔥 Tambahkan ini:
                     if (onTaskUpdated != null) onTaskUpdated.run();
 
                     closeWindow();

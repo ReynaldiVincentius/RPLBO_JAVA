@@ -3,6 +3,7 @@ package org.example.java_todolist.controller;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import org.example.java_todolist.model.Task;
 import org.example.java_todolist.database.Database;
 
@@ -11,76 +12,98 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
 public class TaskCardController {
+
     @FXML private Label dateLabel;
     @FXML private Label titleLabel;
     @FXML private Label timeLabel;
     @FXML private Label assigneeLabel;
     @FXML private Label notesLabel;
+    @FXML private Label categoryLabel;
+
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public void setTask(Task task) {
+        if (task == null) return;
+
+        // Judul
         titleLabel.setText(task.getTitle());
-        dateLabel.setText("📅 " + task.getDeadline());
 
-        String status = task.getStatus();
+        // Kategori
+        String category = task.getCategory();
+        categoryLabel.setText(category != null && !category.isEmpty() ? "🏷️ " + category : "🏷️ Tidak ada kategori");
+
+        // Deadline
         String deadline = task.getDeadline();
-
-        if ("DONE".equalsIgnoreCase(status)) {
-            // Hitung hari lewat deadline
-            String extraInfo = "";
-            try {
-                LocalDate dl = LocalDate.parse(deadline, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                LocalDate today = LocalDate.now();
-                long daysLate = ChronoUnit.DAYS.between(dl, today);
-                if (daysLate > 0) {
-                    extraInfo = " (Sudah lewat deadline " + daysLate + " hari)";
-                }
-            } catch (Exception e) {
-                // ignore parsing error, ga perlu info tambahan
-            }
-            timeLabel.setText("STATUS : DONE" + extraInfo);
-        } else if ("PROGRESS".equalsIgnoreCase(status)) {
-            // Tampilkan countdown deadline
-            String deadlineText = generateDeadlineCountdown(deadline);
-            timeLabel.setText(deadlineText);
+        if (deadline != null && !deadline.isEmpty()) {
+            dateLabel.setText("📅 " + deadline);
         } else {
-            timeLabel.setText("STATUS : " + (status != null ? status : "UNKNOWN"));
+            dateLabel.setText("📅 Tidak ada deadline");
         }
 
-        // Ambil assignee dari DB
+        // Status dan Waktu
+        setStatusAndTime(task.getStatus(), deadline);
+
+        // Assignee (asynchronous)
         fetchAndSetAssignee(task.getId());
 
-        // Notes (deskripsi singkat)
-        String description = task.getDescription();
-        if (description != null && !description.isEmpty()) {
-            String shortDesc = description.split("\\.")[0];
-            if (shortDesc.length() > 50) {
-                shortDesc = shortDesc.substring(0, 50) + "...";
-            }
+        // Deskripsi singkat
+        String desc = task.getDescription();
+        if (desc != null && !desc.isEmpty()) {
+            String shortDesc = desc.length() > 50 ? desc.substring(0, 50) + "..." : desc;
             notesLabel.setText("📝 " + shortDesc);
+            notesLabel.setTooltip(new Tooltip(desc)); // tooltip untuk lihat versi full
         } else {
             notesLabel.setText("📌 Tidak ada catatan");
         }
     }
 
-    private String generateDeadlineCountdown(String deadlineString) {
+    private void setStatusAndTime(String status, String deadlineString) {
+        if (status == null) {
+            timeLabel.setText("STATUS : UNKNOWN");
+            return;
+        }
+
+        switch (status.toUpperCase()) {
+            case "DONE":
+                timeLabel.setText("STATUS : DONE" + getDelayInfo(deadlineString));
+                break;
+            case "PROGRESS":
+                timeLabel.setText(generateDeadlineCountdown(deadlineString));
+                break;
+            default:
+                timeLabel.setText("STATUS : " + status.toUpperCase());
+                break;
+        }
+    }
+
+    private String getDelayInfo(String deadlineString) {
+        if (deadlineString == null || deadlineString.isEmpty()) return "";
+
         try {
-            LocalDate deadline = LocalDate.parse(deadlineString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            LocalDate today = LocalDate.now();
+            LocalDate dl = LocalDate.parse(deadlineString, dateFormatter);
+            long daysLate = ChronoUnit.DAYS.between(dl, LocalDate.now());
+            return daysLate > 0 ? " (Sudah lewat deadline " + daysLate + " hari)" : "";
+        } catch (DateTimeParseException e) {
+            return " (Deadline tidak valid)";
+        }
+    }
 
-            long days = ChronoUnit.DAYS.between(today, deadline);
+    private String generateDeadlineCountdown(String deadlineString) {
+        if (deadlineString == null || deadlineString.isEmpty()) return "❓ Deadline tidak tersedia";
 
-            if (days > 0) {
-                return "⏳ " + days + " hari lagi";
-            } else if (days == 0) {
-                return "⏰ Hari ini";
-            } else {
-                return "✅ Lewat " + Math.abs(days) + " hari";
-            }
+        try {
+            LocalDate deadline = LocalDate.parse(deadlineString, dateFormatter);
+            long days = ChronoUnit.DAYS.between(LocalDate.now(), deadline);
 
-        } catch (Exception e) {
+            if (days > 0) return "⏳ " + days + " hari lagi";
+            if (days == 0) return "⏰ Hari ini";
+            return "✅ Lewat " + Math.abs(days) + " hari";
+
+        } catch (DateTimeParseException e) {
             return "❓ Deadline tidak valid";
         }
     }
@@ -97,16 +120,20 @@ public class TaskCardController {
                 if (rs.next()) {
                     String username = rs.getString("owner_username");
                     if (username != null && !username.isEmpty()) {
-                        String capitalized = username.substring(0, 1).toUpperCase() + username.substring(1);
-                        assigneeText = "👷 " + capitalized;
+                        assigneeText = "👷 " + capitalizeUsername(username);
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                e.printStackTrace(); // logging error dev
             }
 
             final String finalAssigneeText = assigneeText;
             Platform.runLater(() -> assigneeLabel.setText(finalAssigneeText));
         }).start();
+    }
+
+    private String capitalizeUsername(String username) {
+        if (username == null || username.isEmpty()) return "Unknown";
+        return username.substring(0, 1).toUpperCase() + username.substring(1);
     }
 }

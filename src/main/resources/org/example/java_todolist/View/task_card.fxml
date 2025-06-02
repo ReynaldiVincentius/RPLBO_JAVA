@@ -16,16 +16,23 @@
         <Insets top="15" right="15" bottom="15" left="15"/>
     </padding>
 
+    <!-- Judul tugas -->
     <Label fx:id="titleLabel" styleClass="task-name"/>
 
+    <!-- Kategori tugas -->
+    <Label fx:id="categoryLabel" styleClass="task-category"/>
+
+    <!-- Tanggal deadline -->
     <HBox spacing="10" alignment="CENTER_LEFT">
         <Label fx:id="dateLabel" styleClass="task-date"/>
     </HBox>
 
+    <!-- Status dan assignee -->
     <HBox spacing="10" alignment="CENTER_LEFT">
         <Label fx:id="timeLabel" styleClass="task-time"/>
         <Label fx:id="assigneeLabel" styleClass="task-assignee"/>
     </HBox>
 
+    <!-- Deskripsi tugas -->
     <Label fx:id="notesLabel" styleClass="task-notes"/>
 </VBox>

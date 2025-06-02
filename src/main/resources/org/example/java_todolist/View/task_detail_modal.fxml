@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="300" prefWidth="400" style="-fx-padding: 20;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="org.example.java_todolist.controller.TaskDetailModalController" stylesheets="@../Css/TaskDetailModal.css">
+<AnchorPane prefHeight="300" prefWidth="400" style="-fx-padding: 20;" xmlns:fx="http://javafx.com/javafx" fx:controller="org.example.java_todolist.controller.TaskDetailModalController" stylesheets="@../Css/TaskDetailModal.css">
     <VBox layoutX="20.0" layoutY="20.0" spacing="15">
         <TextField fx:id="titleField" editable="true" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
         <DatePicker fx:id="deadlinePicker" editable="true" />
@@ -12,7 +12,6 @@
 
         <Label style="-fx-font-weight: bold;" text="Deskripsi:" />
         <TextArea fx:id="descriptionField" editable="false" disable="true" prefHeight="100" wrapText="true" />
-
 
         <HBox spacing="10">
             <Button fx:id="onEditClickedBtn" onAction="#onEditClicked" text="✏️ Edit" />
