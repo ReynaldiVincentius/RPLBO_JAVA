@@ -15,13 +15,19 @@
                 styleClass="back-button"/>
         <Label fx:id="projectTitle" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
 
-        <ScrollPane fitToWidth="true" prefHeight="500" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+        <!-- Search dan Filter -->
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <TextField fx:id="searchField" promptText="Search task..." />
+            <ComboBox fx:id="categoryFilterComboBox" promptText="Filter by Category" prefWidth="180" />
+            <Button text="Clear Filter" onAction="#handleClearFilter" />
+        </HBox>
+
+        <ScrollPane fitToWidth="true" prefHeight="400" style="-fx-background-color: transparent; -fx-border-color: transparent;">
             <VBox fx:id="taskListContainer" spacing="8">
                 <padding>
                     <Insets top="10" right="10" bottom="10" left="10" />
                 </padding>
             </VBox>
-
         </ScrollPane>
 
         <HBox spacing="10">

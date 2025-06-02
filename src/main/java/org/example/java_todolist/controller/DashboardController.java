@@ -16,14 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.Parent;
-import javafx.fxml.FXMLLoader;
-import java.io.IOException;
-
 
 public class DashboardController {
 
     @FXML private VBox cardContainer;
-    @FXML private StackPane rootPane;  // root StackPane dari dashboard.fxml
+    @FXML private StackPane rootPane;  // Tetap StackPane seperti sekarang
     @FXML private Button addProjectBtn;
 
     private String currentUsername;
@@ -32,12 +29,10 @@ public class DashboardController {
         this.currentUsername = username;
     }
 
-    // Getter untuk akses rootPane dari controller lain
     public StackPane getRootPane() {
         return rootPane;
     }
 
-    // Getter untuk akses cardContainer dari controller lain
     public VBox getCardContainer() {
         return cardContainer;
     }
@@ -50,7 +45,7 @@ public class DashboardController {
     private void openAddProjectForm() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/view/add_project.fxml"));
-            VBox addProjectPane = loader.load();  // Ganti AnchorPane ke VBox
+            VBox addProjectPane = loader.load();
 
             AddProjectController controller = loader.getController();
             controller.setDashboardController(this);
@@ -61,8 +56,6 @@ public class DashboardController {
             e.printStackTrace();
         }
     }
-
-
 
     public void loadProjectCards() {
         if (currentUsername == null) {
@@ -106,7 +99,10 @@ public class DashboardController {
 
             ProjectDetailController controller = loader.getController();
             controller.setProjectData(projectId, projectName);
+
+            // PENTING: pastikan method setRootPane di ProjectDetailController menerima StackPane
             controller.setRootPane(rootPane);
+
             controller.setCurrentUsername(currentUsername);
 
             rootPane.getChildren().setAll(detailPane);
@@ -186,27 +182,23 @@ public class DashboardController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            // rollback bisa ditambah di sini jika perlu
         }
     }
 
     public void returnToDashboardView() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/View/dashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/view/dashboard.fxml"));
             Parent dashboardRoot = loader.load();
 
             DashboardController controller = loader.getController();
             controller.setCurrentUsername(currentUsername);
             controller.loadProjectCards();
 
-            // Ganti isi rootPane dengan dashboard baru
             rootPane.getChildren().setAll(dashboardRoot);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
 
 }

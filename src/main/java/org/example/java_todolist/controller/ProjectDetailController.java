@@ -1,16 +1,13 @@
 package org.example.java_todolist.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.java_todolist.database.Database;
@@ -26,13 +23,16 @@ public class ProjectDetailController {
     @FXML private VBox taskListContainer;
     @FXML private Button backButton;
 
+    @FXML private TextField searchField;
+    @FXML private ComboBox<String> categoryFilterComboBox;
+
     private String currentUsername;
     private int projectId;
-    private StackPane rootPane;
-    private BorderPane mainLayout;
 
-    // Simpan list task di sini supaya bisa diolah kategori-nya
-    private ObservableList<Task> taskObservableList = FXCollections.observableArrayList();
+    private javafx.collections.ObservableList<Task> taskObservableList = javafx.collections.FXCollections.observableArrayList();
+
+    // Ganti dari VBox ke StackPane
+    private StackPane rootPane;
 
     public void setCurrentUsername(String username) {
         this.currentUsername = username;
@@ -42,18 +42,16 @@ public class ProjectDetailController {
         this.projectId = projectId;
         projectTitle.setText("📁 " + projectName);
         loadTasks();
+
+        searchField.textProperty().addListener((obs, oldVal, newVal) -> filterAndDisplayTasks());
+        categoryFilterComboBox.valueProperty().addListener((obs, oldVal, newVal) -> filterAndDisplayTasks());
     }
 
     public void setRootPane(StackPane rootPane) {
         this.rootPane = rootPane;
     }
 
-    public void setMainLayout(BorderPane mainLayout) {
-        this.mainLayout = mainLayout;
-    }
-
     private void loadTasks() {
-        taskListContainer.getChildren().clear();
         taskObservableList.clear();
 
         try (Connection conn = Database.getConnection()) {
@@ -72,28 +70,67 @@ public class ProjectDetailController {
                         rs.getString("id")
                 );
                 taskObservableList.add(task);
-
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/view/task_card.fxml"));
-                Node cardNode = loader.load();
-
-                TaskCardController controller = loader.getController();
-                controller.setTask(task);
-                cardNode.setOnMouseClicked(event -> openTaskDetailModal(task));
-
-                taskListContainer.getChildren().add(cardNode);
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        updateCategoryFilterOptions();
+        filterAndDisplayTasks();
     }
 
-    // Ambil kategori unik dari semua task yang sudah dimuat
+    private void updateCategoryFilterOptions() {
+        List<String> categories = getUniqueCategories();
+        categories.add(0, "All Categories");
+        categoryFilterComboBox.setItems(javafx.collections.FXCollections.observableArrayList(categories));
+        categoryFilterComboBox.getSelectionModel().selectFirst();
+    }
+
     private List<String> getUniqueCategories() {
         return taskObservableList.stream()
                 .map(Task::getCategory)
                 .filter(cat -> cat != null && !cat.isEmpty())
                 .distinct()
+                .sorted()
                 .collect(Collectors.toList());
+    }
+
+    private void filterAndDisplayTasks() {
+        taskListContainer.getChildren().clear();
+
+        String searchText = searchField.getText() != null ? searchField.getText().toLowerCase() : "";
+        String selectedCategory = categoryFilterComboBox.getValue();
+
+        List<Task> filteredTasks = taskObservableList.stream()
+                .filter(task -> {
+                    boolean matchesSearch = task.getTitle().toLowerCase().contains(searchText);
+                    boolean matchesCategory = (selectedCategory == null || selectedCategory.equals("All Categories"))
+                            || task.getCategory().equalsIgnoreCase(selectedCategory);
+                    return matchesSearch && matchesCategory;
+                })
+                .collect(Collectors.toList());
+
+        for (Task task : filteredTasks) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/java_todolist/view/task_card.fxml"));
+                Node cardNode = loader.load();
+
+                TaskCardController controller = loader.getController();
+                controller.setTask(task);
+
+                cardNode.setOnMouseClicked(event -> openTaskDetailModal(task));
+
+                taskListContainer.getChildren().add(cardNode);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void handleClearFilter() {
+        searchField.clear();
+        categoryFilterComboBox.getSelectionModel().selectFirst();
     }
 
     @FXML
@@ -104,9 +141,7 @@ public class ProjectDetailController {
 
             TaskDetailModalController controller = loader.getController();
             controller.setTask(task);
-
-            // Ini bagian penting → set callback
-            controller.setOnTaskUpdated(this::loadTasks); // agar loadTasks() dipanggil ulang setelah edit/delete
+            controller.setOnTaskUpdated(this::loadTasks);
 
             Stage stage = new Stage();
             stage.setTitle("Detail Tugas");
@@ -119,7 +154,6 @@ public class ProjectDetailController {
         }
     }
 
-
     @FXML
     private void handleAddTask() {
         try {
@@ -127,8 +161,6 @@ public class ProjectDetailController {
             Parent root = loader.load();
 
             AddTaskModalController controller = loader.getController();
-
-            // Kirim list kategori unik ke modal
             controller.setExistingCategories(getUniqueCategories());
 
             Stage stage = new Stage();
@@ -150,7 +182,7 @@ public class ProjectDetailController {
                     stmt.setString(6, newTask.getDescription());
                     stmt.executeUpdate();
 
-                    loadTasks(); // refresh daftar task
+                    loadTasks();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -167,7 +199,6 @@ public class ProjectDetailController {
             Node dashboardView = loader.load();
 
             DashboardController controller = loader.getController();
-
             controller.setCurrentUsername(currentUsername);
             controller.loadProjectCards();
 
