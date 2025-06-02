@@ -2,9 +2,7 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.geometry.Insets?>
 
-<?import java.net.URL?>
 <VBox spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.example.java_todolist.controller.ProjectCardController"
       style="-fx-background-color: #f2f2f2; -fx-padding: 15; -fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #ccc;"
@@ -16,10 +14,21 @@
     <VBox fx:id="taskListContainer" spacing="5" />
 
     <HBox spacing="5">
-        <Button fx:id="totalTaskBtn" styleClass="info-badge" disable="true" />
-        <Button fx:id="doneBtn" styleClass="info-badge" disable="true" />
-        <Button fx:id="progressBtn" styleClass="info-badge" disable="true" />
-        <Button fx:id="cancelledBtn" styleClass="info-badge" disable="true" />
-        <Button fx:id="categoryCountBtn" styleClass="info-badge" disable="true" />
+        <Button fx:id="totalTaskBtn"
+                style="-fx-background-color: #E5E7EB; -fx-text-fill: #1F2937; -fx-background-radius: 8; -fx-border-radius: 8; -fx-font-weight: 600; -fx-padding: 4 10;"
+                disable="true" />
+        <Button fx:id="doneBtn"
+                style="-fx-background-color: #D1FAE5; -fx-text-fill: #065F46; -fx-background-radius: 8; -fx-border-radius: 8; -fx-font-weight: 600; -fx-padding: 4 10;"
+                disable="true" />
+        <Button fx:id="progressBtn"
+                style="-fx-background-color: #FEF3C7; -fx-text-fill: #92400E; -fx-background-radius: 8; -fx-border-radius: 8; -fx-font-weight: 600; -fx-padding: 4 10;"
+                disable="true" />
+        <Button fx:id="cancelledBtn"
+                style="-fx-background-color: #FECACA; -fx-text-fill: #991B1B; -fx-background-radius: 8; -fx-border-radius: 8; -fx-font-weight: 600; -fx-padding: 4 10;"
+                disable="true" />
+        <Button fx:id="categoryCountBtn"
+                style="-fx-background-color: #DBEAFE; -fx-text-fill: #1E3A8A; -fx-background-radius: 8; -fx-border-radius: 8; -fx-font-weight: 600; -fx-padding: 4 10;"
+                disable="true" />
     </HBox>
+
 </VBox>

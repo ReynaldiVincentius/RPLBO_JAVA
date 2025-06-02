@@ -25,20 +25,71 @@
     -fx-padding: 10 0 10 0;
 }
 
-/* Style tombol info badge */
-.button.info-badge {
-    -fx-background-color: #1652F0;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
+/* General badge style */
+.info-badge {
     -fx-font-size: 11px;
-    -fx-background-radius: 8px;
     -fx-padding: 4 10;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-font-weight: 600;
+    -fx-border-color: transparent;
+    -fx-cursor: default;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.03), 1, 0.1, 0, 1);
+    -fx-text-fill: black; /* fallback */
+    -fx-alignment: center;
+    -fx-min-width: 30px;
+    -fx-min-height: 20px;
+}
+
+/* Pastikan hover dan pressed tidak ubah warna */
+.info-badge:hover, .info-badge:pressed {
+    -fx-background-color: derive(-fx-background-color, 0%);
+    -fx-text-fill: inherit;
+}
+
+/* Override disabled supaya tetap berwarna dan tidak pudar */
+.info-badge:disabled {
+    -fx-opacity: 1;
+    -fx-background-color: -fx-background-color; /* pakai warna normal */
+    -fx-text-fill: -fx-text-fill;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.03), 1, 0.1, 0, 1);
+}
+
+/* Warna badge spesifik */
+/* Total Task (abu netral) */
+.badge-total {
+    -fx-background-color: #E5E7EB; /* Gray-200 */
+    -fx-text-fill: #1F2937;        /* Gray-800 */
+}
+
+/* Done (hijau terang) */
+.badge-done {
+    -fx-background-color: #D1FAE5; /* Emerald-100 */
+    -fx-text-fill: #065F46;        /* Emerald-800 */
+}
+
+/* In Progress (kuning cerah) */
+.badge-progress {
+    -fx-background-color: #FEF3C7; /* Amber-100 */
+    -fx-text-fill: #92400E;        /* Amber-800 */
+}
+
+/* Cancelled (merah terang) */
+.badge-cancelled {
+    -fx-background-color: #FECACA; /* Rose-200 */
+    -fx-text-fill: #991B1B;        /* Rose-800 */
+}
+
+/* Category (biru ringan) */
+.badge-category {
+    -fx-background-color: #DBEAFE; /* Blue-100 */
+    -fx-text-fill: #1E3A8A;        /* Blue-800 */
+}
+
+.button:disabled {
+    -fx-opacity: 1; /* agar tidak pudar */
+    -fx-background-color: -fx-background-color; /* supaya background tetap */
+    -fx-text-fill: -fx-text-fill; /* supaya teks tetap */
     -fx-cursor: default;
 }
 
-/* Tombol info badge disable */
-.button.info-badge:disabled {
-    -fx-background-color: #9ca3af; /* abu-abu lembut */
-    -fx-text-fill: #f0f0f0;
-    -fx-opacity: 1;
-}
